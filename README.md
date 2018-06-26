@@ -3,6 +3,10 @@
 The api to parse messages in `json-api`-format into plain `js`-object,
 grouped in lookups or in lists.
 
+Since version `1.1.0` the module also supports the reverse transformation to
+`jsonApiEntity` and to the `jsonApiMessage`.
+
+
 ## Installation
 ```shell
 npm i -D json-api-reader
@@ -10,103 +14,51 @@ npm i -D json-api-reader
 
 Don't forget to add `json-api-reader` to the `peerDependencies` too.
 
-## Usage
+
+## Api
+
+The module api is:
+ * [readAsLookup](#to-lookup) - transforms `json-api`-message to set of entity-lookups
+ * [readAsList](#to-list) - transforms `json-api`-message to set of entity-lists
+ * [jsonApiEntity](#to-entity) - transforms `js`-object to the valid `json-api`-entity
+ * [jsonApiMessage](#to-message) - transforms set of `js`-objects to the `json-api`-message
+
+In order to reduce snippets of json-messages the sample has been extracted to the file: <br/>
+[sample-message.json](https://github.com/pdffiller/json-api-reader/blob/master/sample-message.json)
+
+Please get aware of it.
+
+-----
+<a name="to-lookup"></a>
+## Transform json-api-message to set of lookups
+
+> **readAsLookup**:<br/>
+> `message -> { entities, result }`
+
+**Parameters**
+ * **message**: `Object` - the message in `json-api` format as `js`-object
+
+**Returns**: `Object`
+ * **entities**: `{ [collectionName]: { [id]: Object } }` - lookup-object with keys that corespond to the `type` of entities mentioned in the `json-api`-message, and values that are also a lookup-objects containing objects' id's as keys and entities as values.
+
+ * **result**: `any|any[]` - the id or list of ids of entities recieved in message (in the `data` section)
+
+
+### Usage
 
 ```js
-import { readAsLookup, readAsList } from 'json-api-reader/lib';
+import { readAsLookup } from 'json-api-reader/lib';
+import message from 'json-api-reader/sample-message';
 
-
-const message = {
-  "links": {
-    "self": "http://example.com/articles",
-    "next": "http://example.com/articles?page[offset]=2",
-    "last": "http://example.com/articles?page[offset]=10"
-  },
-  "data": [{
-    "type": "articles",
-    "id": "1",
-    "attributes": {
-      "title": "JSON API paints my bikeshed!"
-    },
-    "relationships": {
-      "author": {
-        "links": {
-          "self": "http://example.com/articles/1/relationships/author",
-          "related": "http://example.com/articles/1/author"
-        },
-        "data": { "type": "people", "id": "9" }
-      },
-      "comments": {
-        "links": {
-          "self": "http://example.com/articles/1/relationships/comments",
-          "related": "http://example.com/articles/1/comments"
-        },
-        "data": [
-          { "type": "comments", "id": "5" },
-          { "type": "comments", "id": "12" }
-        ]
-      }
-    },
-    "links": {
-      "self": "http://example.com/articles/1"
-    }
-  }],
-  "included": [{
-    "type": "people",
-    "id": "9",
-    "attributes": {
-      "first-name": "Dan",
-      "last-name": "Gebhardt",
-      "twitter": "dgeb"
-    },
-    "links": {
-      "self": "http://example.com/people/9"
-    }
-  }, {
-    "type": "comments",
-    "id": "5",
-    "attributes": {
-      "body": "First!"
-    },
-    "relationships": {
-      "author": {
-        "data": { "type": "people", "id": "2" }
-      }
-    },
-    "links": {
-      "self": "http://example.com/comments/5"
-    }
-  }, {
-    "type": "comments",
-    "id": "12",
-    "attributes": {
-      "body": "I like XML better"
-    },
-    "relationships": {
-      "author": {
-        "data": { "type": "people", "id": "9" }
-      }
-    },
-    "links": {
-      "self": "http://example.com/comments/12"
-    }
-  }]
-};
 
 const lookups = readAsLookup(message);
 
 console.log(
   JSON.stringify(lookups, null, '  ')
 );
-
-const lists = readAsList(message);
-
-console.log(
-  JSON.stringify(lists, null, '  ')
-);
 ```
 
-First prints:
+Prints:
 ```json
 {
   "entities": {
@@ -148,7 +100,37 @@ First prints:
 }
 ```
 
-Then prints:
+
+-----
+<a name="to-list"></a>
+## Transform json-api-message to set of arrays
+
+> **readAsList**:<br/>
+> `message -> { entities, result }`
+
+**Parameters**
+ * **message**: `Object` - the message in `json-api` format as `js`-object
+
+**Returns**: `Object`
+ * **entities**: `{ [collectionName]: Object[] }` - lookup-object with keys that corespond to the `type` of entities mentioned in the `json-api`-message, and values that are arrays of appropriate entities.
+
+ * **result**: `any|any[]` - the id or list of ids of entities recieved in message (in the `data` section)
+
+ ### Usage
+
+```js
+import { readAsList } from 'json-api-reader/lib';
+import message from 'json-api-reader/sample-message';
+
+
+const list = readAsList(message);
+
+console.log(
+  JSON.stringify(list, null, '  ')
+);
+```
+
+Prints:
 ```json
 {
   "entities": {
@@ -190,27 +172,112 @@ Then prints:
 }
 ```
 
+----
+<a name="to-entity"></a>
 
-## Specification
+## Transform js-object to the valid json-api-entity
 
------
-### `readAsLookup(message) -> { entities, result }`
+> **jsonApiEntity**:<br/>
+> `({ type, refs?, attrs? }) -> jsObject -> { id?, type, attributes, relationships? }`
 
-**Parameters**
- * message: `Object` - the message in `json-api` format as `js`-object
+**Parameters**:
 
-**Returns**: `Object`
- * entities: `{ [collectionName]: { [id]: Object } }` - lookup-object with keys that corespond to the `type` of entities mentioned in the `json-api`-message, and values that are also a lookup-objects containing objects' id's as keys and entities as values.
+* **type**: `String` - the type of entity to be translated to the `json-api`
 
- * result: `any|any[]` - the id or list of ids of entities recieved in message (in the `data` section)
+* **refs**: `String` | `String[]` | `{ [fieldName]: Boolean | String }` 
+(*optional*) -- the object with keys correspond to the fields of `jsObject`.
+The values should be `true`, `false` (in order to ommit the field) or `<entity-type>` to be translated to the `json-api`. The **refs** parameter will be mapped to the `relationships` parameter of resulted entity.
+The string or an array of string will be interpreted as key names and values will be infered as `true`. If no value provided no `releationships` will be present in the result entity.
 
------
- ### `readAsList(message) -> { entities, result }`
+* **attrs**: `String` | `String[]` | `{ [fieldName]: Boolean | String }`
+(*optional*) -- the object with keys that correspond to the fields of `jsObject`. The values could be `true`, `false` (in order to ommit field) or `<entity-field-name>` that be used as field name in `json-api`-entity. The `attrs` parameter will be mapped to the `attributes` field of resulted entity.
+The string or an array of string will be interpreted as key names and values will be infered as `true`. If no value provided then all fields of `jsObject` (excl. `refs`) will be mapped to the `json-api`-format.
 
-**Parameters**
- * message: `Object` - the message in `json-api` format as `js`-object
+**Returns**:
 
-**Returns**: `Object`
- * entities: `{ [collectionName]: Object[] }` - lookup-object with keys that corespond to the `type` of entities mentioned in the `json-api`-message, and values that are arrays of appropriate entities.
+> Anonymous Transforming Function:<br/>
+> `jsObject -> { id?, type, attributes, relationships? }`
 
- * result: `any|any[]` - the id or list of ids of entities recieved in message (in the `data` section)
+**Accepts**:
+* **jsObject**: `Object` - `js`-object to be transformed to the `json-api`-entity
+
+**Returns**: `json-api`-entity:
+* **id**: `any` (*could be omitted*) -- the id of entity calculated as `jsObject.id`
+* **type**: `String` -- the type of entity. Corresponds to the **type** argument of `jsonApiEntity`
+* **attributes**: `Object` -- the attributes of entity
+
+### Usage
+
+```js
+import { jsonApiEntity } from 'json-api-reader/lib/reverse';
+
+const accounts = jsonApiEntity({
+  type: 'Accounts'
+});
+
+const entity = accounts({
+  id: '2600-0-0000',
+  title: 'Current Account',
+});
+
+console.log(
+  JSON.stringify(entity, null, '  ')
+);
+```
+
+Prints:
+```json
+{
+  "id": "2600-0-0000",
+  "type": "accounts",
+  "attributes": {
+    "title": "Current Account"
+  }
+}
+```
+
+Another case:
+```js
+import { jsonApiEntity } from 'json-api-reader/lib/reverse';
+import { entities } from  'json-api-reader/test/__fixtures__/base-result-list';
+
+const articles = jsonApiEntity({
+  type: 'articles',
+  refs: { author: 'people', comments: true },
+});
+const value = entities.articles[0];
+console.log(
+  JSON.stringify(articles(value), null, '  ')
+);
+```
+
+Prints:
+```json
+{
+  "id": "1",
+  "type": "articles",
+  "attributes": {
+    "title": "JSON API paints my bikeshed!"
+  },
+  "relationships": {
+    "author": {
+      "data": {
+        "type": "people",
+        "id": "9"
+      }
+    },
+    "comments": {
+      "data": [
+        {
+          "type": "comments",
+          "id": "5"
+        },
+        {
+          "type": "comments",
+          "id": "12"
+        }
+      ]
+    }
+  }
+}
+```

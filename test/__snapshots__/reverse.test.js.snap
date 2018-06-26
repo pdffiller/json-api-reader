@@ -1,0 +1,296 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`jsonApiEntity should map with attrs 1`] = `
+Object {
+  "attributes": Object {
+    "last_name": "Gebhardt",
+    "twitter": "dgeb",
+  },
+  "id": "9",
+  "type": "people",
+}
+`;
+
+exports[`jsonApiEntity should map with refs 1`] = `
+Object {
+  "attributes": Object {
+    "title": "JSON API paints my bikeshed!",
+  },
+  "id": "1",
+  "relationships": Object {
+    "author": Object {
+      "data": Object {
+        "id": "9",
+        "type": "people",
+      },
+    },
+    "comments": Object {
+      "data": Array [
+        Object {
+          "id": "5",
+          "type": "comments",
+        },
+        Object {
+          "id": "12",
+          "type": "comments",
+        },
+      ],
+    },
+  },
+  "type": "articles",
+}
+`;
+
+exports[`jsonApiEntity should map with type only 1`] = `
+Object {
+  "attributes": Object {
+    "title": "Current Account",
+  },
+  "id": "2600-0-0000",
+  "type": "accounts",
+}
+`;
+
+exports[`jsonApiMessage should create a valid json-api message 1`] = `
+Object {
+  "data": Array [
+    Object {
+      "attributes": Object {
+        "title": "Current Account",
+      },
+      "id": "2600-0-0000",
+      "type": "accounts",
+    },
+    Object {
+      "attributes": Object {
+        "title": "Card Account",
+      },
+      "id": "2605-0-0000",
+      "type": "accounts",
+    },
+  ],
+}
+`;
+
+exports[`jsonApiMessage should create a valid message in complex case 1`] = `
+Object {
+  "data": Array [
+    Object {
+      "attributes": Object {
+        "title": "JSON API paints my bikeshed!",
+      },
+      "id": "1",
+      "relationships": Object {
+        "author": Object {
+          "data": Object {
+            "id": "9",
+            "type": "people",
+          },
+        },
+        "comments": Object {
+          "data": Array [
+            Object {
+              "id": "5",
+              "type": "comments",
+            },
+            Object {
+              "id": "12",
+              "type": "comments",
+            },
+          ],
+        },
+      },
+      "type": "articles",
+    },
+  ],
+  "included": Array [
+    Object {
+      "attributes": Object {
+        "first_name": "Dan",
+        "last_name": "Gebhardt",
+        "twitter": "dgeb",
+      },
+      "id": "9",
+      "type": "people",
+    },
+    Object {
+      "attributes": Object {
+        "body": "First!",
+      },
+      "id": "5",
+      "relationships": Object {
+        "author": Object {
+          "data": Object {
+            "id": "2",
+            "type": "people",
+          },
+        },
+      },
+      "type": "comments",
+    },
+    Object {
+      "attributes": Object {
+        "body": "I like XML better",
+      },
+      "id": "12",
+      "relationships": Object {
+        "author": Object {
+          "data": Object {
+            "id": "9",
+            "type": "people",
+          },
+        },
+      },
+      "type": "comments",
+    },
+  ],
+}
+`;
+
+exports[`jsonApiMessage should create a valid message in complex case 2`] = `
+Object {
+  "data": Object {
+    "attributes": Object {
+      "title": "JSON API paints my bikeshed!",
+    },
+    "id": "1",
+    "relationships": Object {
+      "author": Object {
+        "data": Object {
+          "id": "9",
+          "type": "people",
+        },
+      },
+      "comments": Object {
+        "data": Array [
+          Object {
+            "id": "5",
+            "type": "comments",
+          },
+          Object {
+            "id": "12",
+            "type": "comments",
+          },
+        ],
+      },
+    },
+    "type": "articles",
+  },
+  "included": Array [
+    Object {
+      "attributes": Object {
+        "first_name": "Dan",
+        "last_name": "Gebhardt",
+        "twitter": "dgeb",
+      },
+      "id": "9",
+      "type": "people",
+    },
+    Object {
+      "attributes": Object {
+        "body": "First!",
+      },
+      "id": "5",
+      "relationships": Object {
+        "author": Object {
+          "data": Object {
+            "id": "2",
+            "type": "people",
+          },
+        },
+      },
+      "type": "comments",
+    },
+    Object {
+      "attributes": Object {
+        "body": "I like XML better",
+      },
+      "id": "12",
+      "relationships": Object {
+        "author": Object {
+          "data": Object {
+            "id": "9",
+            "type": "people",
+          },
+        },
+      },
+      "type": "comments",
+    },
+  ],
+}
+`;
+
+exports[`jsonApiMessage should create a valid message in complex case 3`] = `
+Object {
+  "data": Array [
+    Object {
+      "attributes": Object {
+        "title": "JSON API paints my bikeshed!",
+      },
+      "id": "1",
+      "relationships": Object {
+        "author": Object {
+          "data": Object {
+            "id": "9",
+            "type": "people",
+          },
+        },
+        "comments": Object {
+          "data": Array [
+            Object {
+              "id": "5",
+              "type": "comments",
+            },
+            Object {
+              "id": "12",
+              "type": "comments",
+            },
+          ],
+        },
+      },
+      "type": "articles",
+    },
+  ],
+  "included": Array [
+    Object {
+      "attributes": Object {
+        "first_name": "Dan",
+        "last_name": "Gebhardt",
+        "twitter": "dgeb",
+      },
+      "id": "9",
+      "type": "people",
+    },
+    Object {
+      "attributes": Object {
+        "body": "First!",
+      },
+      "id": "5",
+      "relationships": Object {
+        "author": Object {
+          "data": Object {
+            "id": "2",
+            "type": "people",
+          },
+        },
+      },
+      "type": "comments",
+    },
+    Object {
+      "attributes": Object {
+        "body": "I like XML better",
+      },
+      "id": "12",
+      "relationships": Object {
+        "author": Object {
+          "data": Object {
+            "id": "9",
+            "type": "people",
+          },
+        },
+      },
+      "type": "comments",
+    },
+  ],
+}
+`;

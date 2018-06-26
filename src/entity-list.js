@@ -1,8 +1,7 @@
-import { identity } from './fn';
 import { $type } from './entities';
+import { getAllOrBy } from './fn';
 
-
-const addEntityToList = entities => entity => {
+const fillList = entities => entity => {
   const type = entity[$type];
   const e = { ...entity };
   delete e[$type];
@@ -11,11 +10,7 @@ const addEntityToList = entities => entity => {
   return entity;
 };
 
-export const fillEntitiesList = entities => (
-  entities != null ? addEntityToList(entities) : identity
-);
-
 export const createEntitiesList = (all = {}) => ({
-  get: () => all,
-  fill: fillEntitiesList(all),
+  get: getAllOrBy(all),
+  fill: fillList(all),
 });

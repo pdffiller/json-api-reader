@@ -1,7 +1,7 @@
-import { identity } from './fn';
 import { $type } from './entities';
+import { getAllOrBy } from './fn';
 
-const addEntityToLookup = entities => entity => {
+const fillLookup = entities => entity => {
   const type = entity[$type];
   const e = { ...entity };
   delete e[$type];
@@ -10,11 +10,7 @@ const addEntityToLookup = entities => entity => {
   return entity;
 };
 
-export const fillLookup = entities => (
-  entities != null ? addEntityToLookup(entities) : identity
-);
-
 export const createEntitiesLookup = (all = {}) => ({
-  get: () => all,
+  get: getAllOrBy(all),
   fill: fillLookup(all),
 });

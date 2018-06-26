@@ -1,16 +1,11 @@
-import { identity } from './fn';
+import { getAllOrBy } from './fn';
 
-
-const addEntityId = result => entity => {
+const fillResult = result => entity => {
   result.push(entity.id);
   return entity;
 };
 
-export const fillResult = result => (
-  Array.isArray(result) ? addEntityId(result) : identity
-);
-
 export const createResult = (res = []) => ({
-  get: index => (index != null ? res[index] : res),
+  get: getAllOrBy(res),
   fill: fillResult(res),
 });
