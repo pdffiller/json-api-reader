@@ -12,7 +12,10 @@ const readRelationships = relationships => Object.keys(relationships).reduce(
 );
 
 export const readEntity = ({ id, type, attributes, relationships }) => Object.assign(
-  { id: id || rndId(), [$type]: type },
+  {
+    id: id || rndId(),
+    [$type]: toCamelCase(type),
+  },
   attributes != null ? toCamelCaseKeys(attributes) : null,
   relationships != null ? readRelationships(relationships) : null
 );
