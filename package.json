@@ -1,6 +1,6 @@
 {
   "name": "json-api-reader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "JSON API Message Parser",
   "main": "lib/index.js",
   "scripts": {
@@ -10,8 +10,8 @@
     "init": "npm run lint:init; npm run build:init",
     "lint": "cross-env PATH=\"../node_modules/.bin:$PATH\" eslint ./src && echo \"Linting ...Ok.\"",
     "compile": "cross-env PATH=\"../node_modules/.bin:$PATH\" babel src --out-dir lib",
-    "prepare": "rm -rf ./lib && echo \"./lib removed\"",
-    "prepublish": "npm run prepare && npm run lint && npm run compile"
+    "clean:lib": "rm -rf ./lib && echo \"./lib removed\"",
+    "prepublish": "npm run clean:lib && npm run lint && npm run compile"
   },
   "repository": {
     "type": "git",
