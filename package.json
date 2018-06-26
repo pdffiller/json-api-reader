@@ -1,0 +1,37 @@
+{
+  "name": "json-api-reader",
+  "version": "1.0.0",
+  "description": "JSON API Message Parser",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "cross-env PATH=\"../node_modules/.bin:$PATH\" jest",
+    "lint:init": "cross-env PATH=\"../node_modules/.bin:$PATH\" dep-mngr-eslint",
+    "build:init": "cross-env PATH=\"../node_modules/.bin:$PATH\" dep-mngr-webpack",
+    "init": "npm run lint:init; npm run build:init",
+    "lint": "cross-env PATH=\"../node_modules/.bin:$PATH\" eslint ./src && echo \"Linting ...Ok.\"",
+    "compile": "cross-env PATH=\"../node_modules/.bin:$PATH\" babel src --out-dir lib",
+    "prepare": "rm -rf ./lib && echo \"./lib removed\"",
+    "prepublish": "npm run prepare && npm run lint && npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pdffiller/json-api-reader.git"
+  },
+  "keywords": [
+    "json-api",
+    "reader"
+  ],
+  "author": "Dmitry Scheglov <dmitry.scheglov@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pdffiller/json-api-reader/issues"
+  },
+  "homepage": "https://github.com/pdffiller/json-api-reader#readme",
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.0.1",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^23.1.0"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "entities": {
+    "channels": [
+      {
+        "id": "CHANNEL-ID",
+        "title": "Onboarding",
+        "organizationUid": "",
+        "isArchived": 0,
+        "isPrivate": 0,
+        "slug": "onboarding",
+        "author": "USER-ID",
+        "channelCollaborators": []
+      }
+    ],
+    "channel_collaborators": [
+      {
+        "id": "12345678909876543761",
+        "user": "USER-ID"
+      }
+    ]
+  },
+  "result": "CHANNEL-ID"
+}
