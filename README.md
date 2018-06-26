@@ -33,7 +33,8 @@ Please get aware of it.
 ## Transform json-api-message to set of lookups
 
 > **readAsLookup**:<br/>
-> `message -> { entities, result }`
+
+`message -> { entities, result }`
 
 **Parameters**
  * **message**: `Object` - the message in `json-api` format as `js`-object
@@ -106,7 +107,8 @@ Prints:
 ## Transform json-api-message to set of arrays
 
 > **readAsList**:<br/>
-> `message -> { entities, result }`
+
+`message -> { entities, result }`
 
 **Parameters**
  * **message**: `Object` - the message in `json-api` format as `js`-object
@@ -178,7 +180,8 @@ Prints:
 ## Transform js-object to the valid json-api-entity
 
 > **jsonApiEntity**:<br/>
-> `({ type, refs?, attrs? }) -> jsObject -> { id?, type, attributes, relationships? }`
+
+`({ type, refs?, attrs? }) -> jsObject -> { id?, type, attributes, relationships? }`
 
 **Parameters**:
 
@@ -196,7 +199,8 @@ The string or an array of string will be interpreted as key names and values wil
 **Returns**:
 
 > Anonymous Transforming Function:<br/>
-> `jsObject -> { id?, type, attributes, relationships? }`
+
+`jsObject -> { id?, type, attributes, relationships? }`
 
 **Accepts**:
 * **jsObject**: `Object` - `js`-object to be transformed to the `json-api`-entity
