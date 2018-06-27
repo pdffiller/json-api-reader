@@ -16,22 +16,6 @@ export const compose = (...fns) => fns.reduce(
   (f, g) => (...args) => f(g(...args))
 );
 
-export const mapKeys = mapper => obj => Object.keys(obj).reduce(
-  (nObj, key) => Object.assign(nObj, { [mapper(key)]: obj[key] }),
-  {}
-);
-
-export const mapItems = (keyMapper, valueMapper) => obj => Object.keys(obj).reduce(
-  (nObj, key) => {
-    const newKey = keyMapper(key);
-    if (newKey != null) {
-      Object.assign(nObj, { [newKey]: valueMapper(obj[key], key) });
-    }
-    return nObj;
-  },
-  {}
-);
-
 export const getFrom = obj => prop => obj[prop];
 
 export const getAllOrBy = obj => propOrIndex => (
@@ -50,4 +34,16 @@ export const delProp = (obj, prop) => {
 
 export const addProp = (prop, checker) => (obj, value) => (
   checker(value) ? Object.assign(obj, { [prop]: value }) : obj
+);
+
+export const isObject = obj => (
+  Object.prototype.toString.call(obj) === '[object Object]'
+);
+
+export const isEmptyObject = obj => (
+  isObject(obj) && Object.keys(obj).length === 0
+);
+
+export const isNotEmptyObject = obj => (
+  !isObject(obj) || Object.keys(obj).length > 0
 );

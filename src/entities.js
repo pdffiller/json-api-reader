@@ -1,21 +1,18 @@
 import { map } from './fn';
-import { toCamelCase, toCamelCaseKeys } from './camel-case';
+import { mapItems, mapKeys } from './fn-obj';
+import { toCamelCase } from './camel-case';
 
 export const $type = Symbol('__$type');
-const readRelation = ({ id }) => id;
+
 const rndId = () => Math.random().toFixed(20).slice(2);
 
-const readRelationships = relationships => Object.keys(relationships).reduce(
-  (rel, key) => Object.assign(rel, {
-    [toCamelCase(key)]: map(relationships[key].data, readRelation),
-  }), {}
-);
+const toRelation = (value, key) => ({
+  [toCamelCase(key)]: map(value.data, ({ id }) => id)
+});
 
-export const readEntity = ({ id, type, attributes, relationships }) => Object.assign(
-  {
-    id: id || rndId(),
-    [$type]: toCamelCase(type),
-  },
-  attributes != null ? toCamelCaseKeys(attributes) : null,
-  relationships != null ? readRelationships(relationships) : null
-);
+export const readEntity = ({ id, type, attributes, relationships }) => ({
+  id: id || rndId(),
+  [$type]: toCamelCase(type),
+  ...(attributes && mapKeys(attributes, toCamelCase)),
+  ...(relationships && mapItems(relationships, toRelation))
+});
