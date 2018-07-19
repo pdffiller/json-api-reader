@@ -34,5 +34,10 @@
   },
   "result": [
     "1"
-  ]
+  ],
+  "links": {
+    "last": "http://example.com/articles?page[offset]=10",
+    "next": "http://example.com/articles?page[offset]=2",
+    "self": "http://example.com/articles"
+  }
 }
