@@ -4,17 +4,19 @@ import { createEntitiesLookup } from './entity-lookup';
 import { createResult } from './entity-result';
 import { createEntitiesList } from './entity-list';
 
-const read = createEntities => ({ data, included }) => {
+const read = createEntities => ({ data, included, meta, links }) => {
   const entities = createEntities();
   const result = createResult();
 
   forEach(data, compose(entities.fill, result.fill, readEntity));
   forEach(included, compose(entities.fill, readEntity));
 
-  return ({
+  return {
     entities: entities.get(),
     result: result.get(Array.isArray(data) ? null : 0),
-  });
+    meta,
+    links,
+  };
 };
 
 export const readAsLookup = read(createEntitiesLookup);
