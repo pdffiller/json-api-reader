@@ -13,17 +13,18 @@
       "jsx": true,
       "es6": true,
       "classes": true
-    }
+    },
+    "ecmaVersion": 9
   },
   "rules": {
     "no-underscore-dangle" : 0,
     "arrow-body-style": [0],
     "react/jsx-no-bind": [0],
-    "import/no-unresolved": [0], // Until import plugin supports webpack 2 resolveModules
+    "import/no-unresolved": [1],
 
     "no-console": 0,
     "comma-dangle": 0,
-    "object-property-newline": 0, // ?
+    "object-property-newline": 0,
     "no-case-declarations": 0,
     "no-mixed-operators": 0,
     "no-bitwise": 0,
@@ -40,6 +41,12 @@
     "valid-typeof": 0,
     "indent": [2, 2, {"SwitchCase": 1, "flatTernaryExpressions": true }],
     "no-nested-ternary": 0,
+    "operator-linebreak": 0,
+    "no-sequences": 0,
+    "implicit-arrow-linebreak": 0,
+    "object-curly-newline": 0,
+    "function-paren-newline": 0,
+    "react/destructuring-assignment": 0,
 
     "import/no-extraneous-dependencies": 0,
     "import/extensions": 0,
@@ -51,7 +58,7 @@
     "react/no-render-return-value": 0,
     "react/sort-comp": 0,
     "react/jsx-filename-extension": 0,
-    "react/forbid-prop-types": 0, // reenable
+    "react/forbid-prop-types": 0,
     "react/require-default-props": 0,
     "react/no-unused-prop-types": 0,
     "jsx-a11y/img-has-alt": 0,

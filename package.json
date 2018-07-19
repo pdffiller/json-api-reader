@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "cross-env PATH=\"../node_modules/.bin:$PATH\" jest",
-    "lint:init": "cross-env PATH=\"../node_modules/.bin:$PATH\" dep-mngr-eslint",
-    "build:init": "cross-env PATH=\"../node_modules/.bin:$PATH\" dep-mngr-webpack",
+    "lint:init": "cross-env PATH=\"../node_modules/.bin:$PATH\" airslate-dep-eslint",
+    "build:init": "cross-env PATH=\"../node_modules/.bin:$PATH\" airslate-dep-webpack",
     "init": "npm run lint:init; npm run build:init",
     "lint": "cross-env PATH=\"../node_modules/.bin:$PATH\" eslint ./src && echo \"Linting ...Ok.\"",
     "compile": "cross-env PATH=\"../node_modules/.bin:$PATH\" babel src --out-dir lib",
@@ -28,10 +28,6 @@
   },
   "homepage": "https://github.com/pdffiller/json-api-reader#readme",
   "devDependencies": {
-    "cross-env": "^5.2.0",
-    "babel-core": "^6.26.3",
-    "babel-jest": "^23.0.1",
-    "babel-preset-env": "^1.7.0",
-    "jest": "^23.1.0"
+    "cross-env": "^5.2.0"
   }
 }

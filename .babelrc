@@ -1,13 +1,24 @@
 {
   "presets": [
-    "react",
-    "es2015",
-    "stage-0",
-    "airbnb"
+    [
+      "env", {
+        "targets": {
+          "browsers": [
+            "last 2 versions",
+            "ie 10",
+            "ie 11",
+            "safari >= 7"
+          ]
+        }
+      }
+    ],
+    "babel-preset-react"
   ],
   "plugins": [
     "transform-decorators-legacy",
-    "transform-runtime",
-     ["transform-class-properties", { "spec": true }]
+    "transform-class-properties",
+    "transform-object-rest-spread",
+    "async-to-promises",
+    "transform-runtime"
   ]
 }
