@@ -3,6 +3,7 @@ import { forEach, compose } from './fn';
 import { createEntitiesLookup } from './entity-lookup';
 import { createResult } from './entity-result';
 import { createEntitiesList } from './entity-list';
+import { toCamelCaseKeys } from './camel-case';
 
 const read = createEntities => ({ data, included, meta, links }) => {
   const entities = createEntities();
@@ -14,8 +15,8 @@ const read = createEntities => ({ data, included, meta, links }) => {
   return {
     entities: entities.get(),
     result: result.get(Array.isArray(data) ? null : 0),
-    meta,
-    links,
+    meta: meta && toCamelCaseKeys(meta),
+    links: links && toCamelCaseKeys(links),
   };
 };
 
