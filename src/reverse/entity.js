@@ -25,6 +25,7 @@ const getRelationData = (source, refs, attrs) => (_, key) => ({
 
 const buildRelations = (refs, attrs, source) => transduceItems(
   refs, mergeReducer, {},
+  tfilter((_, key) => source[key] !== undefined),
   tfilter(identity),
   tmap(getRelationData(source, refs, attrs))
 );
