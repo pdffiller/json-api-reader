@@ -1,8 +1,8 @@
 {
   "name": "json-api-reader",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "JSON API Message Parser",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "cross-env PATH=\"../node_modules/.bin:$PATH\" jest",
     "lint:init": "cross-env PATH=\"../node_modules/.bin:$PATH\" airslate-dep-eslint",
