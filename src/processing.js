@@ -1,5 +1,6 @@
 import * as FnCommon from './fn-common';
 import { compose, isObject, getFrom } from './fn';
+import { filterKeys } from './fn-obj';
 
 
 export const map = (entityName, mapper) => data => ({
@@ -22,6 +23,10 @@ export const populate = (field, from, asField = field) => data => {
     ...entity,
     [asField]: getEntity(entity[field]),
   });
+};
+
+export const prune = (filter = () => true) => () => {
+  return entity => filterKeys(entity, filter);
 };
 
 const composeMappers2 = (mapperA, mapperB) => data => compose(
