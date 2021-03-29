@@ -25,6 +25,18 @@ export const populate = (field, from, asField = field) => data => {
   });
 };
 
+export const safePopulate = (field, from, asField = field) => data => {
+  const entityFrom = data.entities[from];
+  if (!entityFrom) {
+    return entity => entity;
+  }
+  const getEntity = getValue(entityFrom);
+  return entity => ({
+    ...entity,
+    [asField]: getEntity(entity[field]),
+  });
+};
+
 export const prune = (filter = () => true) => () => {
   return entity => filterKeys(entity, filter);
 };
