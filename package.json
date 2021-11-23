@@ -3,6 +3,7 @@
   "version": "1.6.0",
   "description": "JSON API Message Parser",
   "main": "src/index.js",
+  "types": "types.d.ts",
   "scripts": {
     "test": "cross-env PATH=\"../node_modules/.bin:$PATH\" jest",
     "lint:init": "cross-env PATH=\"../node_modules/.bin:$PATH\" airslate-dep-eslint",
