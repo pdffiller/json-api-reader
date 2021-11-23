@@ -5,12 +5,11 @@
   "main": "src/index.js",
   "types": "types.d.ts",
   "scripts": {
-    "test": "cross-env PATH=\"../node_modules/.bin:$PATH\" jest",
-    "lint:init": "cross-env PATH=\"../node_modules/.bin:$PATH\" airslate-dep-eslint",
-    "build:init": "cross-env PATH=\"../node_modules/.bin:$PATH\" airslate-dep-webpack",
-    "init": "npm run lint:init; npm run build:init",
-    "lint": "cross-env PATH=\"../node_modules/.bin:$PATH\" eslint ./src && echo \"Linting ...Ok.\"",
-    "compile": "cross-env PATH=\"../node_modules/.bin:$PATH\" babel src --out-dir lib",
+    "test": "jest",
+    "lint:init": "airslate-dep-eslint",
+    "build:init": "airslate-dep-webpack",
+    "lint": "eslint ./src && echo \"Linting ...Ok.\"",
+    "compile": "babel src --out-dir lib",
     "clean:lib": "rm -rf ./lib && echo \"./lib removed\"",
     "prepublish": "npm run clean:lib && npm run lint && npm run compile"
   },
@@ -29,6 +28,9 @@
   },
   "homepage": "https://github.com/pdffiller/json-api-reader#readme",
   "devDependencies": {
-    "cross-env": "^5.2.0"
+    "airslate-dep-eslint": "^2.1.1",
+    "airslate-dep-webpack": "1.5.0",
+    "cross-env": "^5.2.0",
+    "jest": "^22.3.1"
   }
 }
